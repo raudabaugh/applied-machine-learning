@@ -4,7 +4,7 @@
 \usepackage{listings}
 
 \begin{document}
-\lstset{language=Python} 
+\lstset{language=Python}
 
 \title{Homework 0 - Modern Analytics}
 \author{Tim Delisle and Sam Raudabaugh}
@@ -15,13 +15,14 @@
 \noindent{{\large Summary}}
 
 
-We investigated the relationships found in Iris database. The attributes available for study were sepal length and width as well as petal length and width. What's interesting is to see a general pattern that could inform someone of the general size and shape of these flowers. 
+We investigated the relationships found in the Iris Flowers dataset in order to sanity-check our Python development environments. The attributes available for study were sepal length and width as well as petal length and width. What's interesting is to see a general pattern that could inform someone of the general size and shape of these flowers.
 
-For one the Iris-Setosa has smaller petals \(in length and width\) than the other classes. Its also interesting to see that petals have relatively constant proportions \( width rises with length \)  for all three classes while the sepals do not. 
+For one the Iris-Setosa has smaller petals (in length and width) than the other classes. It's also interesting to see that petals have relatively constant proportions (width rises with length)  for all three classes while the sepals do not.
 
-The fact that Versicolor and Virginica are closely clustered brings up an interesting question that can't be answered by this particular data set. How are these particular flower classes related to each other genetically and in lineage? One could postulate that Vesicolor and Virginica are more closely related and bifurcated from the heritage and a more recent time.
+The fact that Versicolor and Virginica are closely clustered brings up an interesting question that can't be answered by this particular data set. How are these particular flower classes related to each other genetically and in lineage? One could postulate that Vesicolor and Virginica are more closely related and bifurcated from the heritage and a more recent time.\newline
 
-\begin{enumerate}  
+\noindent{{\large Answers to Lab Questions}}
+\begin{enumerate}
 
 \item There are 4 attributes, 3 classes and 50 instances of each class.
 
@@ -31,20 +32,20 @@ The fact that Versicolor and Virginica are closely clustered brings up an intere
 classes_vector = [] # Empty vector
 
 for line in open("iris.data.txt"):
-    # Insuring that line contains the appropriate variables
-    if len(line.split(",")) > 1 
+    # Ensuring that line contains the appropriate variables
+    if len(line.split(",")) > 1
     	classes_vector.append(line.split(",")[4])
-	
 
 
-    
+
+
 \end{lstlisting}
 
 Output:
 
 `Iris-setosa', `Iris-setosa', `Iris-setosa', `Iris-setosa', `Iris-setosa', `Iris-setosa', `Iris-setosa', `Iris-setosa', `Iris-setosa', `Iris-setosa', `Iris-setosa', `Iris-setosa', `Iris-setosa', `Iris-setosa', `Iris-setosa', `Iris-setosa', `Iris-setosa', `Iris-setosa', `Iris-setosa', `Iris-setosa', `Iris-setosa', `Iris-setosa', `Iris-setosa', `Iris-setosa', `Iris-setosa', `Iris-setosa', `Iris-setosa', `Iris-setosa', `Iris-setosa', `Iris-setosa', `Iris-setosa', `Iris-setosa', `Iris-setosa', `Iris-setosa', `Iris-setosa', `Iris-setosa', `Iris-setosa', `Iris-setosa', `Iris-setosa', `Iris-setosa', `Iris-setosa', `Iris-setosa', `Iris-setosa', `Iris-setosa', `Iris-setosa', `Iris-setosa', `Iris-setosa', `Iris-setosa', `Iris-setosa', `Iris-setosa', `Iris-versicolor', `Iris-versicolor', `Iris-versicolor', `Iris-versicolor', `Iris-versicolor', `Iris-versicolor', `Iris-versicolor', `Iris-versicolor', `Iris-versicolor', `Iris-versicolor', `Iris-versicolor', `Iris-versicolor', `Iris-versicolor', `Iris-versicolor', `Iris-versicolor', `Iris-versicolor', `Iris-versicolor', `Iris-versicolor', `Iris-versicolor', `Iris-versicolor', `Iris-versicolor', `Iris-versicolor', `Iris-versicolor', `Iris-versicolor', `Iris-versicolor', `Iris-versicolor', `Iris-versicolor', `Iris-versicolor', `Iris-versicolor', `Iris-versicolor', `Iris-versicolor', `Iris-versicolor', `Iris-versicolor', `Iris-versicolor', `Iris-versicolor', `Iris-versicolor', `Iris-versicolor', `Iris-versicolor', `Iris-versicolor', `Iris-versicolor', `Iris-versicolor', `Iris-versicolor', `Iris-versicolor', `Iris-versicolor', `Iris-versicolor', `Iris-versicolor', `Iris-versicolor', `Iris-versicolor', `Iris-versicolor', `Iris-versicolor', `Iris-virginica', `Iris-virginica', `Iris-virginica', `Iris-virginica', `Iris-virginica', `Iris-virginica', `Iris-virginica', `Iris-virginica', `Iris-virginica', `Iris-virginica', `Iris-virginica', `Iris-virginica', `Iris-virginica', `Iris-virginica', `Iris-virginica', `Iris-virginica', `Iris-virginica', `Iris-virginica', `Iris-virginica', `Iris-virginica', `Iris-virginica', `Iris-virginica', `Iris-virginica', `Iris-virginica', `Iris-virginica', `Iris-virginica', `Iris-virginica', `Iris-virginica', `Iris-virginica', `Iris-virginica', `Iris-virginica', `Iris-virginica', `Iris-virginica', `Iris-virginica', `Iris-virginica', `Iris-virginica', `Iris-virginica', `Iris-virginica', `Iris-virginica', `Iris-virginica', `Iris-virginica', `Iris-virginica', `Iris-virginica', `Iris-virginica', `Iris-virginica', `Iris-virginica', `Iris-virginica', `Iris-virginica', `Iris-virginica', `Iris-virginica'
 
-\item Visualizations on the following page
+\item Visualizations in Figure 1 on the following page
 
 \end{enumerate}
 
@@ -63,7 +64,7 @@ Output:
 \subfloat[petal len vs sepal wid]{
   \includegraphics[width=50mm]{figures/4.png}
 }
-\subfloat[sepal len vs sepal wid]{  
+\subfloat[sepal len vs sepal wid]{
   \includegraphics[width=50mm]{figures/5.png}
 }
 \subfloat[sepal wid vs petal len]{
@@ -73,7 +74,7 @@ Output:
 \subfloat[sepal wid vs petal len]{
   \includegraphics[width=50mm]{figures/7.png}
 }
-\subfloat[petal wid vs petal len]{  
+\subfloat[petal wid vs petal len]{
   \includegraphics[width=50mm]{figures/8.png}
 }
 \subfloat[sepal len vs petal len]{
@@ -83,7 +84,7 @@ Output:
 \subfloat[sepal wid vs petal wid]{
   \includegraphics[width=50mm]{figures/10.png}
 }
-\subfloat[petal len vs petal wid]{  
+\subfloat[petal len vs petal wid]{
   \includegraphics[width=50mm]{figures/11.png}
 }
 \subfloat[sepal len vs petal wid]{
