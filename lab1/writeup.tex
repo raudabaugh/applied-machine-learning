@@ -80,5 +80,33 @@ $var[X+Y] = E[X^2]-E[X]E[X] + E[Y^2]-E[Y]E[Y] + E[XY]-E[X]E[Y] + E[XY]-E[X]E[Y]$
 $var[X+Y] = cov[X,X] + cov[Y,Y] + cov[X,Y] + cov[X,Y]$
 \\\\
 $var[X+Y] = var[X] + var[Y] + 2cov[X,Y]$
+\\\\
+\noindent{{\large Written 2. Bayes rule for medical diagnosis}}
+\\\\
+Let $D$ refer to the event that you have the disease, and $TP$ refer to the event that you tested positive. Then:
+\\\\
+$P(D|TP) = \frac{P(D)P(TP|D)}{P(TP)}$
+\\\\
+Given $P(D) = 0.0001$ and $P(TP|D) = 0.99$, we only need to derive $P(TP)$.
+\\\\
+$P(TP) = P(TP|D)P(D)+P(TP|D')P(D')$
+\\\\
+Finally, with $P(TP|D') = 0.01$ and $P(D') = 0.9999$:
+\\\\
+$P(D|TP) = \frac{P(D)P(TP|D)}{P(TP|D)P(D)+P(TP|D')P(D')} = \frac{0.0001*0.99}{0.99*0.0001+0.01*0.9999} = 0.0098$
+\newpage
+\noindent{{\large Written 3a. Derivative of sigmoid function}}
+\\\\
+Given $\sigma(a) = \frac{1}{1+e^{-a}} = (1+e^{-a})^{-1}$
+\\\\
+$\frac{d\sigma(a)}{da} = -(1+e^{-a})^{-2}*-e^{-a}$
+\\\\
+$\frac{d\sigma(a)}{da} = \frac{e^{-a}}{(1+e^{-a})^2}$
+\\\\
+$\frac{d\sigma(a)}{da} = \frac{1}{1+e^{-a}}\left(\frac{e^{-a}}{1+e^{-a}}\right)$
+\\\\
+$\frac{d\sigma(a)}{da} = \frac{1}{1+e^{-a}}\left(\frac{1+e^{-a}}{1+e^{-a}} - \frac{1}{1+e^{-a}}\right)$
+\\\\
+$\frac{d\sigma(a)}{da} = \sigma(a)\left(1-\sigma(a)\right)$
 
 \end{document}
