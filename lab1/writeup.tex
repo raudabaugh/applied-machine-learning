@@ -62,6 +62,23 @@ such as a random forest classifier, is recommended.
   \includegraphics[width=150mm]{figures/kaggle-titanic.png}
 \caption{Kaggle result for Titanic challenge}
 \end{figure}
-
+\newpage
+\noindent{{\large Written 1. Variance of a sum}}
+\\\\
+Show var[X+Y] = var[X] + var[Y] + 2cov[X,Y].
+\\\\
+$var[X+Y] = cov[X+Y, X+Y]$
+\\\\
+By definition of covariance:
+\\
+$var[X+Y] = E[(X+Y)(X+Y)] - E[X+Y]E[X+Y]$
+\\\\
+$var[X+Y] = E[(X^2+2XY+Y^2]-(E[X]+E[Y])(E[X]+E[Y])$
+\\\\
+$var[X+Y] = E[X^2]-E[X]E[X] + E[Y^2]-E[Y]E[Y] + E[XY]-E[X]E[Y] + E[XY]-E[X]E[Y]$
+\\\\
+$var[X+Y] = cov[X,X] + cov[Y,Y] + cov[X,Y] + cov[X,Y]$
+\\\\
+$var[X+Y] = var[X] + var[Y] + 2cov[X,Y]$
 
 \end{document}
