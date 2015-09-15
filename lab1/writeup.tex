@@ -31,30 +31,37 @@ and passenger's socioeconomic status, which will hopefully better represent typi
 
 \begin{figure}
 \centering
-\subfloat[sepal wid vs sepal len]{
-  \includegraphics[width=50mm]{figures/train-age-fare}
+\subfloat[training data]{
+  \includegraphics[width=50mm]{figures/train-age-fare.png}
 }
-\caption{Age and fare distribution for training data}
+\subfloat[test data]{
+  \includegraphics[width=50mm]{figures/test-age-fare.png}
+}
+\caption{Age (left) and fare (right) distributions}
 \end{figure}
 
-\begin{figure}
-\centering
-\subfloat[sepal wid vs sepal len]{
-  \includegraphics[width=50mm]{figures/test-age-fare}
-}
-\caption{Age and fare distribution for test data}
-\end{figure}
+A couple of features in the dataset were ignored, namely \verb+Ticket+ and \verb+Cabin+. The difficulty of mapping these categorical values presumably would outweigh any
+benefit. Additionally, the values for \verb+Cabin+ were largely incomplete.
 
-Following \href{https://www.kaggle.com/c/titanic/details/getting-started-with-python-ii}{Kaggle's "Getting Started With Python II" guide}, we constructed two new features from the dataset:
+Following \href{https://www.kaggle.com/c/titanic/details/getting-started-with-python-ii}{the Kaggle article}, we constructed two new features from the dataset:
 \verb+FamilySize+, obtained simply by adding together the number of siblings, spouses, parents and children aboard, and \verb+Age*Class+, obtained by multiplying age by the passenger's
 socioeconomic status (1 for upper class, 2 for middle class, 3 for lower class), since both older and lower class passengers had a lower likelihood of survival.
 
-At each decision step, we test the usefulness of these features with a 10 fold cross-validation technique, which uses the code from Michael Wilber's lecture working with the \verb+cross_validation+
+At each decision step, we test the usefulness of a combination of features with a 10 fold cross-validation technique, which uses the code from Michael Wilber's lecture working with the \verb+cross_validation+
 module in \verb+scikit-learn+ as a starting point.
 Using \verb+FamilySize+ and \verb+Age*Class+ in place of \verb+Age+ both produced higher cross-validation scores.
 
 We also experimented with pulling out the titles of each passenger's name and categorizing them in different ways. The first strategy was a binary approach with only pedestrian and non-pedestrian titles,
 while the second strategy used 5 title types: pedestrian, honorary, academic, military, or religious. The latter approach resulted in higher cross-validation scores, but neither approach affected the Kaggle test score.
-For reference, the attached code includes the second strategy, defined in \verb+get_title_type()+.
+For reference, the attached code makes use of the second strategy, defined in \verb+get_title_type()+.
+
+Finally, we ran our solution on the test dataset, submitting the results to Kaggle. We received a score of 0.75598 as shown in Figure 2. For future improvements, experimenting with another model,
+such as a random forest classifier, is recommended.
+\begin{figure}
+\centering
+  \includegraphics[width=150mm]{figures/kaggle-titanic.png}
+\caption{Kaggle result for Titanic challenge}
+\end{figure}
+
 
 \end{document}
