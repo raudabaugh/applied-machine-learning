@@ -4,6 +4,8 @@
 \usepackage{listings}
 \usepackage{hyperref}
 \usepackage{amsmath,amsfonts,amssymb }
+\usepackage{natbib}
+\usepackage{ulem}
 
 \begin{document}
 \lstset{language=Python}
@@ -69,11 +71,11 @@ in Figure 4 shows that this is the case.
 
 \noindent{{\large 2. What's cooking}}
 
-For this problem we joined the What's cooking competition on Kaggle. This problem poses the fun challenge of classifying recipes into cuisines from their underlying ingredients. Our goal was to identify the best model to use to accomplish this classification problem. To accomplish this task we used Scikit Learn's 
+For this problem we joined the What's cooking competition on Kaggle. This problem poses the fun challenge of classifying recipes into cuisines from their underlying ingredients. Our goal was to identify the best model to use to accomplish this classification problem. To accomplish this task we used Scikit Learn's
 
-We began by exploring the data. The sample data has 39,774 dishes, 20 different cuisines and 6,714 unique ingredients. 
+We began by exploring the data. The sample data has 39,774 dishes, 20 different cuisines and 6,714 unique ingredients.
 
-We follow this exploration of the data by with a vectorization of the features. This feature vector is of length 6,714, all possible ingredients. We assign a zero if the ingredient is not present in the recipe and a one if it is. We began by naively implementing our vectorization algorithm by iterating through the vector. We quickly realized that the algorithm was inefficient and therefore decided to implement a mapper where each of the ingredients is used as a key and mapped to a position in the vector (i.e. ``Key" to ``Index"). 
+We follow this exploration of the data by with a vectorization of the features. This feature vector is of length 6,714, all possible ingredients. We assign a zero if the ingredient is not present in the recipe and a one if it is. We began by naively implementing our vectorization algorithm by iterating through the vector. We quickly realized that the algorithm was inefficient and therefore decided to implement a mapper where each of the ingredients is used as a key and mapped to a position in the vector (i.e. ``Key" to ``Index").
 
 Once vectorized we used our feature matrix to train several different classifiers. We began by testing a naive bayes classifier testing two different underlying distributions, bernoulli and gaussian. To compute the average accuracy for each model we used the cross\_val\_score function provided by scikit learn's cross validation module.
 
@@ -95,7 +97,201 @@ Lastly we submitted our results on Kaggle. Proof of submission is found in figur
 
 \hspace{3mm}
 
-\noindent{{\large 3. Written SVD of rank deficient matrix}}
+\newpage
+\noindent{{\large Written 1. Standard eigenvalue problem}}
+\\
+Use the Lagrange multiplier:\\
+$L(a) = a^TBa + \lambda(a^TWa-1)$\\
+$\frac{dL}{da} = a^T(B+B^T) + \lambda a^T(W+W^T) = 0$\\\\
+$a^T(B+B^T) = -\lambda a^T(W+W^T)$\\\\
+$2a^TB^T=-2\lambda a^TW^T$\\\\
+$a^TB^T = -\lambda a^TW^T$\\\\
+Substitute $\widetilde{\lambda} = -\lambda$:\\\\
+$Ba = \widetilde{\lambda}Wa$\\\\
+We obtain\\
+$W^{-1}Ba = \widetilde{\lambda}a$\\
+which is in the form of a standard eigenvalue problem.
+
+\hspace{3mm}
+
+\newpage
+\noindent{{\large Written 2a. LDA rule}}
+
+Given the LDA rule:\\
+
+$\delta_k (x) = x^T \Sigma ^{-1} - \dfrac{1}{2}\mu_k ^T \Sigma ^{-1} \mu_k + log \pi_k$\\
+
+In a two-class response, we classify to class 2 if:
+
+$\delta_2 > \delta_1$ \\
+
+Thus: \\
+
+$x^T \Sigma^{-1} \mu_2  - \dfrac{1}{2}\mu_2 ^T \Sigma ^{-1} \mu_2 + log \pi_2  > x^T \Sigma^{-1} \mu_1 - \dfrac{1}{2}\mu_1 ^T \Sigma ^{-1} \mu_1 + log \pi_1$\\
+
+$x^T \Sigma^{-1} (\mu_2 - \mu_1) - \dfrac{1}{2}\mu_2 ^T \Sigma ^{-1} \mu_2 + log \pi_2  > - \dfrac{1}{2}\mu_1 ^T \Sigma ^{-1} \mu_1 + log \pi_1$\\
+
+$x^T \Sigma^{-1} (\mu_2 - \mu_1) > \dfrac{1}{2}\mu_2 ^T \Sigma ^{-1} \mu_2 - \dfrac{1}{2}\mu_1 ^T \Sigma ^{-1} \mu_1 + log \pi_1 - log \pi_2$ \\
+
+
+We can simplify the right hand side, starting with the log expression:
+
+$log \pi_1 - log \pi_2 = log \pi_1 + log \dfrac{1}{\pi_2}$\\
+
+$log \pi_1 - log \pi_2 = log \dfrac{\pi_1}{\pi_2}$\\
+
+$log \pi_1 - log \pi_2 = log \dfrac{N_1/N}{N_2/N} = - log \dfrac{N_2}{N_1}$\\
+
+Next, the remaining part of the RHS:
+
+$\dfrac{1}{2}\mu_2 ^T \Sigma ^{-1} \mu_2 - \dfrac{1}{2}\mu_1 ^T \Sigma ^{-1} \mu_1 = \dfrac{1}{2}\mu_2 ^T \Sigma ^{-1} \mu_2 - \dfrac{1}{2}\mu_2 ^T \Sigma ^{-1} \mu_1 + \dfrac{1}{2}\mu_1 ^T \Sigma ^{-1} \mu_2  - \dfrac{1}{2}\mu_1 ^T \Sigma ^{-1} \mu_1$\\
+
+Group the $\dfrac{1}{2}\mu_2 ^T$ and $\dfrac{1}{2}\mu_1 ^T$ terms:
+
+$\dfrac{1}{2}\mu_2 ^T \Sigma ^{-1} \mu_2 - \dfrac{1}{2}\mu_1 ^T \Sigma ^{-1} \mu_1 = \dfrac{1}{2}\mu_2 ^T \Sigma ^{-1} (\mu_2 - \mu_1) +  \dfrac{1}{2}\mu_1 ^T \Sigma ^{-1} (\mu_2 - \mu_1)$\\
+
+$\dfrac{1}{2}\mu_2 ^T \Sigma ^{-1} \mu_2 - \dfrac{1}{2}\mu_1 ^T \Sigma ^{-1} \mu_1 = \dfrac{1}{2}(\mu_2+\mu_1)^T \Sigma ^{-1} (\mu_2 - \mu_1)$\\
+
+Finally:
+
+$x^T \Sigma^{-1} (\mu_2 - \mu_1) > \dfrac{1}{2}(\mu_2+\mu_1)^T \Sigma ^{-1} (\mu_2 - \mu_1)- log \dfrac{N_2}{N_1}$ \\
+
+\hspace{3mm}
+
+\newpage
+\noindent{{\large Written 2b. Least squares solution}}
+\\\\
+$
+x^Tx\begin{bmatrix}
+    B_o \\
+    B
+\end{bmatrix} = y^Tx$
+
+$x^Tx = \begin{bmatrix}
+        N & \sum_{i=1}^{N} x_i^T  \\
+        \sum_{i=1}^{N} x_i & \sum_{i=1}^{N} x_i x_i^T
+    \end{bmatrix} = \begin{bmatrix}
+        N & N_1 \mu_1^T + N_2 \mu_2^T  \\
+        N_1 \mu_1 + N_2 \mu_2 & \sum_{i=1}^{N} x_i x_i^T
+    \end{bmatrix}$\\
+
+$x^Ty = \begin{bmatrix}
+    1 & ... & 1 \\
+    x_1 & ... & x_N
+\end{bmatrix}
+\begin{bmatrix}
+    \dfrac{-N}{N_1} \\
+    . \\
+    . \\
+    . \\
+    \dfrac{N}{N_2}
+\end{bmatrix} =
+\begin{bmatrix}
+    0 \\
+    -N\mu_1 + N \mu_2
+\end{bmatrix}$\\
+
+Obtain the estimate sample covariance:
+
+$
+ \Sigma = \dfrac{1}{N-2} [\sum_{i=1}^{N_1} (x_i- \mu_1)(x_i - \mu_1)^T + \sum_{j=N_1+1}^{N} (x_j-\mu_2)(x_j - \mu_2)^T]
+$\\
+
+By a property of the covariance matrix (see \url{https://en.wikipedia.org/wiki/Covariance_matrix#Properties}):\\
+
+$
+ \Sigma = \dfrac{1}{N-2} [\sum_{i=1}^{N_1} x_ix_i^T + N \mu_1 \mu_1^T + \sum_{j=N_1+1}^{N} x_j x_j^T + N_2 \mu_2 \mu_2^T]
+$\\
+
+$
+ (N-2) \Sigma =  \sum_{i=1}^{N} x_ix_i^T - N \mu_1 \mu_1^T - N_2 \mu_2 \mu_2^T
+$\\
+
+$
+ (N-2) \Sigma + N \mu_1 \mu_1^T + N_2 \mu_2 \mu_2^T =  \sum_{i=1}^{N} x_ix_i^T
+$\\
+
+Substitute into $x^Tx$:
+
+\begin{equation}
+    x^Tx = \begin{bmatrix}
+        N & N_1 \mu_1^T + N_2 \mu_2^T  \\
+        N_1 \mu_1 + N_2 \mu_2 & (N-2) \Sigma + N \mu_1 \mu_1^T + N_2 \mu_2 \mu_2^T
+    \end{bmatrix}
+\end{equation}
+
+
+\begin{equation}
+    \begin{bmatrix}
+        N & N_1 \mu_1^T + N_2 \mu_2^T  \\
+        N_1 \mu_1 + N_2 \mu_2 & (N-2) \Sigma + N \mu_1 \mu_1^T + N_2 \mu_2 \mu_2^T
+    \end{bmatrix}
+    \begin{bmatrix}
+        B_o \\
+        B
+    \end{bmatrix} = \begin{bmatrix}
+        0 \\
+        -N\mu_1 + N \mu_2
+    \end{bmatrix}
+\end{equation}
+
+\begin{align}
+N B_o + (N_1\mu_1^T+N_2 \mu_2^T)B &= 0 \\
+(N_1 \mu_1 + N_2 \mu_2) B_o+ [(N-2) \Sigma + N_1 \mu_1\mu_1^T + N_2 \mu_2 \mu_2^T]B &= -N \mu_1 + N \mu_2
+\end{align}
+
+
+\begin{equation}
+B_o = -\dfrac{1}{N} (N_1\mu_1^T+N_2 \mu_2^T)B \\
+(-\dfrac{1}{N}(N_1 \mu_1 + N_2 \mu_2)+(N-2) \Sigma + N_1 \mu_1 \mu_1^T + N_2 \mu_2 \mu_2^T) B =
+\end{equation}
+\begin{equation}
+B_o = -N\mu_1 + N \mu_2 \\
+((N-2) \Sigma -\dfrac{1}{N}(N_1 \mu_1 + N_2 \mu_2)+ N_1 \mu_1 \mu_1^T + N_2 \mu_2 \mu_2^T) B = N(\mu_2 - \mu_1)
+\end{equation}
+
+
+\begin{align}
+[(N-2)\Sigma + (N_1 N_2)/N \Sigma_B]B &= N(\mu_2 - \mu_1)
+\end{align}
+
+
+
+\hspace{3mm}
+
+\noindent{{\large Written 2c. Direction of $\Sigma _B B$}}
+
+$\Sigma_B B = \dfrac{N_1N_2}{N^2}(\mu_2-\mu_1)(\mu_2-\mu_1)^TB$
+
+$\dfrac{N_1N_2}{N^2}$ and $(\mu_2-\mu_1)^TB$ both evaluate to scalar values, so the direction of $\Sigma _B B$ is determined entirely by $(\mu_2-\mu_1)$.
+
+\hspace{3mm}
+
+\noindent{{\large Written 2d. Alternate coding}}
+
+Since $-\frac{N}{N_1}$ and $\frac{N}{N_2}$ are already distinct and generic choices, we can reshape them into any other aribtrary choices for target codes and repeat the steps in 2b.
+
+\hspace{3mm}
+
+\noindent{{\large Written 2e. Comparison with LDA}}
+
+$B_o = (\frac{-N_1}{N}\mu_1^T-\frac{N_2}{N}\mu_2^T)B$\\
+
+$f(x)=B_o + x^TB$\\
+
+$f(x)=(\frac{-N_1}{N}\mu_1^T-\frac{N_2}{N}\mu_2^T +x^T)B$\\
+
+$f(x)=\frac{1}{N}(Nx^T-N_1\mu_1^T-N_2\mu_2^T)\lambda\Sigma^{-1}(\mu_2-\mu_1)$\\
+
+$Nx^T\lambda\Sigma^{-1}(\mu_2-\mu_1) > (N_1\mu_1^T+N_2\mu_2^T)\lambda\Sigma^{-1}(\mu_2-\mu_1)$\\
+
+$x^T\Sigma^{-1}(\mu_2-\mu_1) > \frac{1}{N}(N_1\mu_1^T+N_2\mu_2^T)\Sigma^{-1}(\mu_2-\mu_1)$\\
+
+When $N_1 = N_2$, this is the same as the LDA inequality.
+
+\hspace{3mm}
+
+\noindent{{\large Written 3. SVD of rank deficient matrix}}
 
 In this exercise we calculate the singular value decomposition of a matrix as well as an approximation of the original matrix using the largest eigenvalue. We see that this approximation is very close to the original matrix and computed an energy of .908.
 
@@ -116,7 +312,7 @@ M^\intercal =
 \begin{bmatrix}
 1 & 3 & 5 & 0 & 1 \\
 2 & 4 & 4 & 2 & 3 \\
-3 & 5 & 3 & 4 & 5 
+3 & 5 & 3 & 4 & 5
 \end{bmatrix}
 \]
 
@@ -134,7 +330,7 @@ MM^\intercal =
 \[
 M^\intercal M =
 \begin{bmatrix}
-36 & 37 & 38 \\ 
+36 & 37 & 38 \\
 37 & 49 & 61 \\
 38 & 61 & 84
 \end{bmatrix}
@@ -231,4 +427,18 @@ Aprox =
 \text{(Approximation with first eigenvalue)}
 \]
 
+\hspace{3mm}
+
+\noindent{{\large References}}
+
+The following libraries were used for this assignment:
+\begin{itemize}
+  \item matplotlib
+  \item numpy
+  \item pandas
+  \item scipy
+  \item seaborn
+  \item sklearn
+  \item Python standard library
+\end{itemize}
 \end{document}
