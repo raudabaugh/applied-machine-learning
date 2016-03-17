@@ -1,0 +1,10 @@
+--- a/scribe-notes/main.tex
++++ b/scribe-notes/main.tex
+@@ -78,7 +78,7 @@ $$
+ $$
+ Note that the normalizations constants cancelled out and, since all the $\Sigma_k$s are equal, we don't have any terms quadratic in $x$.  In other words, $x$ only appears linearly in this expression, which has the form $\alpha_{k0}+\alpha_k^\top x$.
+
+-The focus where $Pr(G=k|X=x) = Pr(G=l|X=x)$ is a line (plane, hyperplane, etc.) is the \emph{decision boundary}: on one side, class $k$ is more likely than class $l$, vice versa on the other side.
++The locus where $Pr(G=k|X=x) = Pr(G=l|X=x)$ is a line (plane, hyperplane, etc.) represents the \emph{decision boundary}: on one side, class $k$ is more likely than class $l$, vice versa on the other side.
+
+ Figure \ref{fig:lda3class} shows the decision boundaries between three classes in 2 dimensions.  If the covariances weren't equal, the decision boundaries wouldn't be straight.  In such cases one can use Quadratic Discriminant Analysis, which we won't be covering.
